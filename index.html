@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Lwabakholwayo Holdings | Mixed Farming • 3,000 Hectares</title>
+  <!-- Google Fonts + Font Awesome 6 -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FEFCF5;
+      color: #1F2A1B;
+      scroll-behavior: smooth;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .btn-primary {
+      background: #2C5E2E;
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .btn-primary:hover {
+      background: #1F4620;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(44,94,46,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #2C5E2E;
+      color: #2C5E2E;
+      padding: 10px 26px;
+      font-weight: 600;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-outline:hover {
+      background: #2C5E2E;
+      color: white;
+      transform: translateY(-2px);
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 32px;
+      flex-wrap: wrap;
+      background: rgba(254, 252, 245, 0.96);
+      backdrop-filter: blur(2px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #E9E3D4;
+    }
+    .logo h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #2C5E2E;
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #7F6B4A;
+      display: block;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2C3A24;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #2C5E2E;
+    }
+    .hero {
+      background: linear-gradient(107deg, #F1EBDC 0%, #E8E0CE 100%);
+      background-size: cover;
+      background-position: center 30%;
+      padding: 80px 0 100px;
+      position: relative;
+    }
+    .hero-content {
+      max-width: 720px;
+    }
+    .hero-badge {
+      background: rgba(44, 94, 46, 0.85);
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 40px;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #1F2A1B;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #2A3A24;
+      margin-bottom: 32px;
+      max-width: 560px;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 32px;
+      background: white;
+      border-radius: 32px;
+      padding: 32px 48px;
+      margin-top: -60px;
+      margin-bottom: 64px;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08);
+      border: 1px solid #F0E9DB;
+    }
+    .stat-card {
+      text-align: center;
+      flex: 1;
+      min-width: 140px;
+    }
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #2C5E2E;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #5C4E36;
+      margin-top: 8px;
+      letter-spacing: 0.3px;
+    }
+    .stat-icon {
+      font-size: 2rem;
+      color: #C9B27C;
+      margin-bottom: 8px;
+    }
+    section {
+      padding: 72px 0;
+    }
+    .section-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1F2A1B;
+      letter-spacing: -0.3px;
+    }
+    .section-sub {
+      font-size: 1.1rem;
+      color: #5F6A53;
+      margin-bottom: 48px;
+      max-width: 650px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+      border: 1px solid #EFE7D8;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+    }
+    .card i {
+      font-size: 2.4rem;
+      color: #2C5E2E;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .investment-grid {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    .investment-card {
+      background: #F9F6EF;
+      border-radius: 28px;
+      padding: 28px;
+      flex: 1;
+      transition: 0.2s;
+      border: 1px solid #E9E1D2;
+    }
+    .investment-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #2C5E2E;
+      margin: 16px 0;
+    }
+    .employment-form {
+      background: #F4F0E7;
+      border-radius: 32px;
+      padding: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .input-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .input-group input {
+      padding: 14px 20px;
+      border-radius: 60px;
+      border: 1px solid #DDD2BF;
+      font-family: inherit;
+      width: 260px;
+      background: white;
+    }
+    footer {
+      background: #1F2A1B;
+      color: #DED9CA;
+      padding: 48px 0 24px;
+      text-align: center;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(3px);
+    }
+    .modal-content {
+      background: white;
+      max-width: 460px;
+      width: 90%;
+      border-radius: 40px;
+      padding: 32px;
+      text-align: center;
+      animation: fadeSlideUp 0.2s ease;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 60px;
+      border: 1px solid #ddd;
+    }
+    .close-modal {
+      margin-top: 20px;
+      background: #eee;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 800px) {
+      .nav-links { gap: 20px; }
+      .hero h1 { font-size: 2.4rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; align-items: center; text-align: center; margin-top: -30px; }
+      .container { padding: 0 24px; }
+      nav { flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-outline { justify-content: center; }
+    }
+    .highlight {
+      color: #2C5E2E;
+      font-weight: 700;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <h2>🌾 LWABAKHOLWAYO HOLDINGS</h2>
+    <span>Mixed Farming • 3,000+ Hectares</span>
+  </div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#whatwedo">What We Do</a>
+    <a href="#investment">Investment</a>
+    <a href="#employment">Employment</a>
+    <button class="btn-primary invest-nav-btn" style="padding: 8px 22px;"><i class="fas fa-chart-line"></i> Invest Now</button>
+  </div>
+</nav>
+
+<section id="home" class="hero">
+  <div class="container hero-content">
+    <div class="hero-badge"><i class="fas fa-tractor"></i> Established Commercial Farming</div>
+    <h1>3,000 Hectares.<br>Mixed Farming.<br>Sustainable Growth.</h1>
+    <p>Lwabakholwayo Holdings is a premier agricultural enterprise cultivating high-value crops, industrial hemp, and livestock across 3,000+ hectares. We combine modern agribusiness with environmental stewardship.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary invest-hero-btn"><i class="fas fa-chart-line"></i> Invest Now</button>
+      <button class="btn-outline learn-more-btn"><i class="fas fa-arrow-right"></i> Learn More</button>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats-row" id="statsSection">
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-map-marked-alt"></i></div>
+      <div class="stat-number"><span class="counter" data-target="3000">0</span>+</div>
+      <div class="stat-label">Hectares Under Cultivation</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+      <div class="stat-number"><span class="counter" data-target="500">0</span>+</div>
+      <div class="stat-label">Permanent Jobs</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="stat-number"><span class="counter" data-target="35">0</span>%</div>
+      <div class="stat-label">Projected 5-Year Growth</div>
+    </div>
+  </div>
+</div>
+
+<section id="whatwedo">
+  <div class="container">
+    <div class="section-title">What We Do</div>
+    <div class="section-sub">Diversified farming operations delivering quality products to local and international markets.</div>
+    <div class="grid-2">
+      <div class="card">
+        <i class="fas fa-seedling"></i>
+        <h3>Mixed Farming</h3>
+        <p>Maize, hemp, vegetables, and livestock raised using regenerative techniques across 3,000 hectares. High yield, organic transition, and water-wise irrigation.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-industry"></i>
+        <h3>Industrial Hemp</h3>
+        <p>From field to finished goods – textiles, building materials, and health products. Capturing full value chain benefits.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-simple"></i>
+        <h3>Value-Added Products</h3>
+        <p>Fortified maize porridge, hemp-based oils, and sustainable packaging. Diversifying revenue streams.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-charging-station"></i>
+        <h3>Sustainability Focus</h3>
+        <p>Carbon sequestration, solar-powered irrigation, and soil health programs. ESG-aligned operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="investment">
+  <div class="container">
+    <div class="section-title">Investment Opportunities</div>
+    <div class="section-sub">Partner with a growing agribusiness. Attractive returns backed by real assets and proven management.</div>
+    <div class="investment-grid">
+      <div class="investment-card">
+        <i class="fas fa-chart-pie"></i>
+        <h3>Impact Investor</h3>
+        <div class="price">R500,000+</div>
+        <p>8-12% projected returns + tax incentives</p>
+        <ul style="margin: 16px 0 0 20px;">
+          <li>Quarterly performance reports</li>
+          <li>Site visit invitations</li>
+          <li>ESG impact metrics</li>
+        </ul>
+        <button class="btn-outline invest-tier-btn" style="margin-top: 24px; width:100%;">Express Interest</button>
+      </div>
+      <div class="investment-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Equity Partner</h3>
+        <div class="price">R2,000,000+</div>
+        <p>15-20% projected returns</p>
+        <ul style="margin: 16px 0 0 20px;">
+          <li>Board observer rights</li>
+          <li>First right to offtake</li>
+          <li>Profit-sharing participation</li>
+        </ul>
+        <button class="btn-outline invest-tier-btn" style="margin-top: 24px; width:100%;">Request Prospectus</button>
+      </div>
+      <div class="investment-card">
+        <i class="fas fa-handshake"></i>
+        <h3>Development Partner</h3>
+        <div class="price">Any Amount</div>
+        <p>Concessional rates + impact credits</p>
+        <ul style="margin: 16px 0 0 20px;">
+          <li>UN SDG alignment reporting</li>
+          <li>Community recognition</li>
+          <li>Preferred supplier status</li>
+        </ul>
+        <button class="btn-outline invest-tier-btn" style="margin-top: 24px; width:100%;">Discuss Collaboration</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chart Section -->
+<section>
+  <div class="container">
+    <div class="section-title">Operational Growth</div>
+    <div class="section-sub">Expanding hectares and revenue over the next five years.</div>
+    <div style="background: white; border-radius: 28px; padding: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
+      <canvas id="growthChart" width="800" height="400" style="max-width:100%; height:auto;"></canvas>
+    </div>
+  </div>
+</section>
+
+<section id="employment">
+  <div class="container">
+    <div class="section-title">Careers at Lwabakholwayo</div>
+    <div class="section-sub">We are building a skilled workforce to support our expanding operations. Join us.</div>
+    <div class="employment-form">
+      <div>
+        <h3 style="margin-bottom: 8px;"><i class="fas fa-bell"></i> Job Alerts</h3>
+        <p>Get notified about new opportunities in farming, logistics, processing, and management.</p>
+      </div>
+      <div class="input-group">
+        <input type="email" id="jobEmail" placeholder="Your email address">
+        <button class="btn-primary" id="subscribeJobBtn"><i class="fas fa-paper-plane"></i> Notify Me</button>
+      </div>
+    </div>
+    <div style="margin-top: 48px; display: flex; gap: 24px; flex-wrap: wrap; justify-content: space-between;">
+      <div style="flex:1; min-width: 200px;">
+        <i class="fas fa-tractor"></i>
+        <h4>Farm Operations</h4>
+        <p>Permanent and seasonal roles with training programs. 200+ positions filled in 2024.</p>
+      </div>
+      <div style="flex:1; min-width: 200px;">
+        <i class="fas fa-chalkboard-user"></i>
+        <h4>Skills Development</h4>
+        <p>Agribusiness apprenticeships and leadership tracks. Next intake opens soon.</p>
+        <button class="btn-outline" style="margin-top: 12px; padding: 6px 18px;" id="trainingInterestBtn">Register Interest</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><i class="fas fa-leaf"></i> Lwabakholwayo Holdings Pty Ltd – Growing sustainably for the future.</p>
+    <p style="margin-top: 16px; font-size: 0.85rem;">© 2025 | Eastern Cape, South Africa | Mixed Farming • 3,000+ Hectares</p>
+    <div style="margin-top: 24px; display: flex; justify-content: center; gap: 20px;">
+      <i class="fab fa-linkedin" style="cursor:pointer;"></i>
+      <i class="fab fa-twitter" style="cursor:pointer;"></i>
+      <i class="fab fa-instagram" style="cursor:pointer;"></i>
+    </div>
+  </div>
+</footer>
+
+<div id="investModal" class="modal">
+  <div class="modal-content">
+    <i class="fas fa-chart-line" style="font-size: 3rem; color: #2C5E2E;"></i>
+    <h3>Invest in Lwabakholwayo Holdings</h3>
+    <p>Please provide your details and our team will send you the full investment memorandum.</p>
+    <input type="text" id="investName" placeholder="Full name">
+    <input type="email" id="investEmail" placeholder="Email address">
+    <input type="tel" id="investPhone" placeholder="Phone (optional)">
+    <button class="btn-primary" id="submitInvestBtn" style="width: 100%; margin: 8px 0;">Submit Interest</button>
+    <button class="close-modal" id="closeModalBtn">Cancel</button>
+  </div>
+</div>
+
+<script>
+  // Counters animation
+  const counters = document.querySelectorAll('.counter');
+  let animated = false;
+  function startCounters() {
+    if (animated) return;
+    animated = true;
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const update = () => {
+        if (current < target) {
+          current += Math.ceil(target / 40);
+          if (current > target) current = target;
+          counter.innerText = current;
+          setTimeout(update, 25);
+        }
+      };
+      update();
+    });
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting && !animated) startCounters(); });
+  }, { threshold: 0.3 });
+  const statsSection = document.getElementById('statsSection');
+  if (statsSection) observer.observe(statsSection);
+
+  // Chart (Growth Projection)
+  const ctx = document.getElementById('growthChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['2024', '2025', '2026', '2027', '2028'],
+      datasets: [
+        {
+          label: 'Hectares Under Cultivation',
+          data: [3000, 3600, 4200, 4800, 5500],
+          borderColor: '#2C5E2E',
+          backgroundColor: 'rgba(44,94,46,0.1)',
+          fill: true,
+          tension: 0.3
+        },
+        {
+          label: 'Annual Revenue (R million)',
+          data: [45, 65, 85, 110, 140],
+          borderColor: '#C9B27C',
+          backgroundColor: 'rgba(201,178,124,0.1)',
+          fill: true,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        tooltip: { mode: 'index', intersect: false },
+        legend: { position: 'top' }
+      }
+    }
+  });
+
+  // Modal handling
+  const modal = document.getElementById('investModal');
+  const openModalBtns = document.querySelectorAll('.invest-hero-btn, .invest-nav-btn, .invest-tier-btn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const submitInvest = document.getElementById('submitInvestBtn');
+
+  function openModal() { modal.style.display = 'flex'; }
+  function closeModalFunc() { modal.style.display = 'none'; }
+  openModalBtns.forEach(btn => btn.addEventListener('click', openModal));
+  closeModalBtn.addEventListener('click', closeModalFunc);
+  window.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
+  submitInvest.addEventListener('click', () => {
+    const name = document.getElementById('investName').value.trim();
+    const email = document.getElementById('investEmail').value.trim();
+    if (!name || !email) {
+      alert('Please provide your name and email.');
+      return;
+    }
+    alert(`Thank you ${name}! Our investment team will contact you at ${email} within 48 hours.`);
+    closeModalFunc();
+    document.getElementById('investName').value = '';
+    document.getElementById('investEmail').value = '';
+    document.getElementById('investPhone').value = '';
+  });
+
+  // Job alerts
+  document.getElementById('subscribeJobBtn').addEventListener('click', () => {
+    const email = document.getElementById('jobEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    alert(`Subscribed! ${email} will receive job alerts.`);
+    document.getElementById('jobEmail').value = '';
+  });
+  document.getElementById('trainingInterestBtn').addEventListener('
