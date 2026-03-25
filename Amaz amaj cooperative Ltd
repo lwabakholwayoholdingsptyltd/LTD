@@ -1,0 +1,12 @@
+amaj-coop/
+├── index.html
+├── style.css
+├── images/
+│   ├── hero-farm.jpg
+│   ├── crop-fields.jpg
+│   ├── hemp-processing.jpg
+│   ├── porridge-making.jpg
+│   ├── community-meeting.jpg
+│   ├── workers-harvest.jpg
+│   ├── children-eating.jpg
+│   └── map-preview.jpg
